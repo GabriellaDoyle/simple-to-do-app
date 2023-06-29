@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "App.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc --watch"
   },
   "keywords": [],
   "author": "",
@@ -11,5 +11,6 @@
   "devDependencies": {
     "typescript": "^5.1.5"
   },
+
   "description": ""
 }
