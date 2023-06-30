@@ -1,17 +1,16 @@
 import { Task } from "../types/types";
 import { v4 as uuidV4 } from "uuid";
 
-
-const list = document.querySelector<HTMLUListElement>("#list");
-const form = document.getElementById("#new-task-form") as HTMLFormElement | null
-const input = document.querySelector<HTMLInputElement>("#new-task-title");
+const list = document.querySelector<HTMLUListElement>("#list")
+const form = document.getElementById("new-task-form") as HTMLFormElement | null
+const input = document.querySelector<HTMLInputElement>("#new-task-title")
 const tasks: Task[] = loadTasks()
 tasks.forEach(addListItem)
 
 form?.addEventListener("submit", e => {
-  e.preventDefault();
+  e.preventDefault()
 
-  if (input?.value == "" || input?.value == null) return;
+  if (input?.value == "" || input?.value == null) return
 
   const newTask: Task = {
     id: uuidV4(),
@@ -19,35 +18,34 @@ form?.addEventListener("submit", e => {
     completed: false,
     created: new Date(),
   }
-  
   tasks.push(newTask)
   saveTasks()
 
-  addListItem(newTask);
+  addListItem(newTask)
   input.value = ""
 })
 
-function addListItem (task: Task) {
+function addListItem(task: Task) {
   const item = document.createElement("li")
   const label = document.createElement("label")
   const checkbox = document.createElement("input")
   checkbox.addEventListener("change", () => {
-    task.completed = checkbox.checked;
+    task.completed = checkbox.checked
     saveTasks()
   })
   checkbox.type = "checkbox"
-  checkbox.checked = task.completed;
-  label.append(checkbox, task.title);
-  item.append(label);
-  list?.append(item);
+  checkbox.checked = task.completed
+  label.append(checkbox, task.title)
+  item.append(label)
+  list?.append(item)
 }
 
 function saveTasks() {
-  localStorage.setItem("Tasks", JSON.stringify(tasks))
+  localStorage.setItem("TASKS", JSON.stringify(tasks))
 }
 
 function loadTasks(): Task[] {
-  const taskJSON = localStorage.getItem("Tasks")
+  const taskJSON = localStorage.getItem("TASKS")
   if (taskJSON == null) return []
   return JSON.parse(taskJSON)
 }
